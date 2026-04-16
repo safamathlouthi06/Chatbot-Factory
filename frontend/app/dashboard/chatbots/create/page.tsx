@@ -1,103 +1,148 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 export default function CreateChatbotPage() {
-  const router = useRouter();
-
   const [form, setForm] = useState({
     name: "",
     description: "",
-    tone: "professionnel",
+    role: "Support Client",
+    tone: "Professionnel",
+    example: "Bonjour ! En quoi puis-je vous être utile ?",
   });
 
-  const handleChange = (e: any) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    try {
-      // 👉 API backend (FastAPI plus tard)
-      const res = await fetch("http://localhost:8000/chatbots", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
-      });
+    console.log("DATA:", form);
 
-      if (!res.ok) {
-        alert("Erreur création chatbot");
-        return;
-      }
+    // 👉 ici tu connectes avec ton backend (FastAPI)
+    // fetch("http://localhost:8000/chatbots", { method: "POST", ... })
 
-      alert("Chatbot créé avec succès 🚀");
-      router.push("/chatbot");
-
-    } catch (err) {
-      console.error(err);
-      alert("Erreur serveur");
-    }
+    alert("Chatbot créé !");
   };
 
   return (
-    <div className="max-w-xl mx-auto space-y-6">
-
-      <div>
-        <h1 className="text-2xl font-bold">Créer un Chatbot</h1>
-        <p className="text-zinc-500">
-          Configure ton assistant intelligent
+    <div className="p-8 bg-gray-100 min-h-screen">
+      <div className="max-w-2xl mx-auto bg-white rounded-xl shadow p-6">
+        
+        <h1 className="text-2xl font-bold mb-2">
+          Créer un nouveau chatbot
+        </h1>
+        <p className="text-gray-500 mb-6">
+          Configurez votre assistant conversationnel
         </p>
+
+        <form onSubmit={handleSubmit} className="space-y-5">
+
+          {/* Nom */}
+          <div>
+            <label className="block font-medium mb-1">
+              Nom du chatbot *
+            </label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Ex: Assistant Client Pro"
+              value={form.name}
+              onChange={handleChange}
+              className="w-full border rounded-lg p-2 bg-gray-50"
+              required
+            />
+            <p className="text-sm text-gray-400">
+              Le nom qui identifiera votre chatbot
+            </p>
+          </div>
+
+          {/* Description */}
+          <div>
+            <label className="block font-medium mb-1">
+              Description *
+            </label>
+            <textarea
+              name="description"
+              placeholder="Ex: Assistant de support client disponible 24/7..."
+              value={form.description}
+              onChange={handleChange}
+              className="w-full border rounded-lg p-2 bg-gray-50"
+              required
+            />
+            <p className="text-sm text-gray-400">
+              Décrivez brièvement le rôle de votre chatbot
+            </p>
+          </div>
+
+          {/* Rôle */}
+          <div>
+            <label className="block font-medium mb-1">
+              Rôle du chatbot *
+            </label>
+            <select
+              name="role"
+              value={form.role}
+              onChange={handleChange}
+              className="w-full border rounded-lg p-2 bg-gray-50"
+            >
+              <option>Support Client</option>
+              <option>Assistant Commercial</option>
+              <option>Coach</option>
+            </select>
+          </div>
+
+          {/* Ton */}
+          <div>
+            <label className="block font-medium mb-1">
+              Ton de communication *
+            </label>
+            <select
+              name="tone"
+              value={form.tone}
+              onChange={handleChange}
+              className="w-full border rounded-lg p-2 bg-gray-50"
+            >
+              <option>Professionnel</option>
+              <option>Amical</option>
+              <option>Fun</option>
+            </select>
+          </div>
+
+          {/* Exemple */}
+          <div>
+            <label className="block font-medium mb-1">
+              Exemple de réponse
+            </label>
+            <textarea
+              name="example"
+              value={form.example}
+              onChange={handleChange}
+              className="w-full border rounded-lg p-2 bg-gray-50"
+            />
+          </div>
+
+          {/* Buttons */}
+          <div className="flex justify-between pt-4">
+            <button
+              type="button"
+              className="px-4 py-2 rounded-lg border"
+            >
+              Annuler
+            </button>
+
+            <button
+              type="submit"
+              className="px-5 py-2 bg-black text-white rounded-lg hover:opacity-90"
+            >
+              🔒 Créer le chatbot
+            </button>
+          </div>
+        </form>
       </div>
-
-      <form
-        onSubmit={handleSubmit}
-        className="space-y-4 border p-6 rounded-xl bg-white dark:bg-zinc-950"
-      >
-
-        <div>
-          <label className="text-sm">Nom</label>
-          <input
-            name="name"
-            className="w-full border p-2 rounded-lg"
-            onChange={handleChange}
-          />
-        </div>
-
-        <div>
-          <label className="text-sm">Description</label>
-          <input
-            name="description"
-            className="w-full border p-2 rounded-lg"
-            onChange={handleChange}
-          />
-        </div>
-
-        <div>
-          <label className="text-sm">Ton</label>
-          <select
-            name="tone"
-            className="w-full border p-2 rounded-lg"
-            onChange={handleChange}
-          >
-            <option value="professionnel">Professionnel</option>
-            <option value="amical">Amical</option>
-            <option value="commercial">Commercial</option>
-          </select>
-        </div>
-
-        <button
-          type="submit"
-          className="w-full bg-black text-white py-2 rounded-lg"
-        >
-          Créer le chatbot
-        </button>
-
-      </form>
-
     </div>
   );
 }
