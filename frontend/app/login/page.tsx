@@ -39,8 +39,16 @@ export default function LoginPage() {
         return;
       }
 
+  // 💾 STOCKAGE
       localStorage.setItem("token", data.access_token);
-      router.push("/dashboard");
+      localStorage.setItem("role", data.role);
+
+      // 🚀 REDIRECTION INTELLIGENTE
+      if (data.role === "admin") {
+        router.push("/admin");
+      } else {
+        router.push("/dashboard");
+      }
 
     } catch (error) {
       setError("Erreur de connexion au serveur");

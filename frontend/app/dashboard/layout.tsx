@@ -168,7 +168,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           </button>
 
           <h1 className="font-semibold">
-            Dashboard
+            Dashboard ENTREPRISE
           </h1>
 
           <div className="hidden md:flex items-center gap-2">
