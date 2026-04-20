@@ -3,6 +3,10 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from auth import router as auth_router
 from routes.chatbot import router as chatbot_router
+from routes.base_connaissance import router as base_router
+from routes.documents import router as document_router
+from routes.faq import router as faq_router
+
 from test import router as test_router
 
 app = FastAPI()
@@ -25,4 +29,8 @@ app.add_middleware(
 
 app.include_router(auth_router)
 app.include_router(chatbot_router)
+app.include_router(base_router)
+app.include_router(document_router)
+app.include_router(faq_router)
+
 app.include_router(test_router)

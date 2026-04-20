@@ -1,6 +1,13 @@
 from pydantic import BaseModel
+from uuid import UUID
 
 class FAQ(BaseModel):
+    id: UUID
+    base_id: UUID
     question: str
     reponse: str
-    base_connaissance_id: str
+
+class FAQCreate(BaseModel):
+    base_id: UUID
+    question: str
+    reponse: str

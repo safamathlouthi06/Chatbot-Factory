@@ -1,6 +1,19 @@
 from pydantic import BaseModel
+from uuid import UUID
+
+
 
 class Document(BaseModel):
+    id: UUID
+    base_id: UUID
     titre: str
-    contenu: str
-    base_connaissance_id: str
+    file: str
+
+class DocumentCreate(BaseModel):
+    base_id: str
+    titre: str
+    file:str
+
+
+
+

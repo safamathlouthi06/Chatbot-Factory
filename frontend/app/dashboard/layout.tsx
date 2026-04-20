@@ -9,16 +9,21 @@ import {
   LayoutDashboard,
   Bot,
   BarChart3,
-  Users,
+  FileText  ,
   Settings,
   Search,
   ChevronLeft,
   ChevronRight,
   CreditCard,
-  FileText,
+  
   LifeBuoy,
-  Sparkles
+  Sparkles,
+  FlaskConical,
+  Rocket,
+  Database,
+  
 } from "lucide-react";
+
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -41,7 +46,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
     { href: "/dashboard/chatbots", label: "chatbots", icon: Bot },
     { href: "/dashboard/stats", label: "Statistiques", icon: BarChart3 },
-    { href: "/dashboard/teams", label: "Équipes", icon: Users },
+    { href: "/dashboard/chatbots/base-de-connaissance", label: "Base de connaisance", icon: Database    },
+    { href: "/dashboard/test", label: "Test", icon: FlaskConical  },
+    { href: "/dashboard/deploi", label: "Deploiement", icon: Rocket  },
     { href: "/dashboard/settings", label: "Paramètres", icon: Settings },
   ];
 
